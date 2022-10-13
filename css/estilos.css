@@ -60,6 +60,7 @@ nav a {
 /* Regra de acionamento do link  */
 nav a:hover, nav a:focus {
     background-color: rgba(120, 109, 124, 0.356);
+    color: white;
 }
 /* ../ é a pasta anterior */
 .destaque {
