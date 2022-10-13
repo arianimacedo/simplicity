@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>Contato - Simplicity</title>
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header class="limitador">
+        <h1>
+            <a href="index.html">
+                Simplicity
+            </a>
+        </h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="servicos.html">Serviços</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </header>
+    <!-- Conteúdo Principal -->
+    <main>
+        <article class="limitador conteudo">
+            <h2>Contato</h2>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit laudantium aperiam commodi officiis. Doloribus, excepturi nostrum dolorem voluptas laboriosam neque consectetur incidunt accusamus, debitis fugiat laudantium maiores, molestiae officiis necessitatibus?</p>
+<p>Illo necessitatibus suscipit eaque, distinctio laborum earum sequi aliquam ea voluptas quod tenetur, perferendis, delectus eius iste odio repellendus. Itaque aspernatur, provident ab voluptatibus vel eum accusantium distinctio? Cum, beatae.</p>
+
+<p>Atenção: os campos Nome e Email são obrigatórios.</p>
+
+<!-- Container para todos os campos de formulário. For e Label estão sempre relacionados. Required faz o campo do formulário ser obrigatório -->
+<form id="my-form" action="https://formspree.io/f/xgeqydbw" method="post">
+    <p>
+        <label for="nome">Nome:</label>
+        <input type="text" name="" id="nome" required>
+    </p>
+
+    <p>
+        <label for="email">E-mail:</label>
+        <input type="email" name="" id="email" required>
+    </p>
+
+    <p>
+        <label for="telefone">Telefone</label>
+        <input type="tel" name="telefone" id="telefone">
+    </p>
+
+    <p>
+        <label for="nascimento">Data de nascimento</label>
+        <input type="date" name="nascimento" id="nascimento">
+    </p>
+
+    <p>Sexo: <br>
+        <input type="radio" name="sexo" id="masculino" value="Masculino">
+        <label for="masculino">Masculino</label>
+
+        <input type="radio" name="sexo" id="feminino" value="Feminino">
+        <label for="feminino">Feminino</label>
+
+        <input type="radio" name="sexo" id="nao-responder" value="Não respondeu">
+        <label for="nao-responder">Prefiro não responder</label>
+    </p>
+
+    <p>Interesses: <br>
+        <input type="checkbox" name="interesses" id="design" value="Design">
+        <label for="design">Design</label>
+
+        <input type="checkbox" name="interesses" id="programacao" value="Programação">
+        <label for="programacao">Programação</label>
+
+        <input type="checkbox" name="interesses" id="marketing" value="Marketing">
+        <label for="marketing">Marketing</label>
+    </p>
+
+    <p>
+        <!-- value="" se usa somente quando as informações vão para algum banco de dados -->
+        <label for="assunto">Assunto:</label>
+        <select name="assunto" id="assunto">
+        <option value=""></option>
+
+        <option>Dúvidas</option>
+        <option>Reclamações</option>
+        <option>Elogios</option>
+        <option>Outros</option>
+    </select>
+    </p>
+
+    <!-- cols é coluna e rows são linhas. -->
+    <p>
+        <label for="mensagem">Mensagem:</label> <br>
+        <textarea name="mensagem" id="mensagem" cols="30" rows="7"></textarea>
+    </p>
+
+    <p><button type="submit">Enviar</button></p>
+
+    <p id= my-form-status></p>
+
+</form>
+        </article>
+
+    </main>
+    <!-- Rodapé -->
+    <footer>
+        <p>
+            Simplicity é um site fictício desenvolvido educacionalmente<br>
+            Senac Penha
+        </p>
+    </footer>
+
+    <script>
+        var form = document.getElementById("my-form");
+        
+        async function handleSubmit(event) {
+          event.preventDefault();
+          var status = document.getElementById("my-form-status");
+          var data = new FormData(event.target);
+          fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+          }).then(response => {
+            if (response.ok) {
+              status.innerHTML = "Obrigada pelo contato!";
+              form.reset()
+            } else {
+              response.json().then(data => {
+                if (Object.hasOwn(data, 'errors')) {
+                  status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+                } else {
+                  status.innerHTML = "Opa! Houve um erro no envio do seu formulário"
+                }
+              })
+            }
+          }).catch(error => {
+            status.innerHTML = "Opa! Houve um erro no envio do seu formulário"
+          });
+        }
+        form.addEventListener("submit", handleSubmit)
+    </script>
+   
+</body>
+
+</html>
